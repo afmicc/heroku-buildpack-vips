@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
 	automake \
 	libtool \
 	intltool \
+	gobject-introspection \
 	gtk-doc-tools \
 	unzip \
 	wget \
@@ -35,7 +36,21 @@ RUN apt-get update && apt-get install -y \
 	liblcms2-dev \
 	libxml2-dev \
 	libfftw3-dev \
-  libpoppler-glib-dev
+	libpoppler-glib-dev \
+	libde265-dev \
+	libheif-dev \
+	libglib2.0-dev \
+	libjpeg-turbo8-dev \
+  libwebp-dev \
+	libgif-dev \
+  swig \
+	libmagickwand-dev \
+	libpango1.0-dev \
+	libmatio-dev \
+	libopenslide-dev \
+  libgsf-1-dev \
+	fftw3-dev \
+	liborc-0.4-dev
 
 ARG GIFLIB_VERSION=5.1.4
 ARG GIFLIB_URL=http://downloads.sourceforge.net/project/giflib
@@ -71,6 +86,30 @@ RUN cd /usr/src \
 	&& make \
 	&& make install
 
+# ARG DE265_VERSION=1.0.5
+# ARG DE265_URL=https://github.com/strukturag/libde265/releases/download
+
+# RUN cd /usr/src \
+#       && wget ${DE265_URL}/v${DE265_VERSION}/libde265-$DE265_VERSION.tar.gz \
+#       && tar -xvf libde265-${DE265_VERSION}.tar.gz \
+#       && cd libde265-${DE265_VERSION} \
+#       && ./autogen.sh \
+#       && ./configure --prefix=/usr/src/vips \
+#       && make \
+#       && make install
+
+# ARG HEIF_VERSION=1.6.2
+# ARG HEIF_URL=https://github.com/strukturag/libheif/releases/download
+
+# RUN cd /usr/src \
+#       && wget ${HEIF_URL}/v${HEIF_VERSION}/libheif-$HEIF_VERSION.tar.gz \
+#       && tar -xvf libheif-${HEIF_VERSION}.tar.gz \
+#       && cd libheif-${HEIF_VERSION} \
+#       && ./autogen.sh \
+#       && ./configure --prefix=/usr/src/vips \
+#       && make \
+#       && make install
+
 ARG VIPS_URL=https://github.com/libvips/libvips/releases/download
 
 RUN cd /usr/src \
@@ -78,7 +117,7 @@ RUN cd /usr/src \
 	&& tar xzf vips-${VIPS_VERSION}.tar.gz \
 	&& cd vips-${VIPS_VERSION} \
 	&& export PKG_CONFIG_PATH=/usr/src/vips/lib/pkgconfig \
-	&& ./configure --prefix=/usr/src/vips --disable-gtk-doc \
+	&& ./configure --prefix=/usr/src/vips --disable-gtk-doc --with-heif=yes \
 	&& make \
 	&& make install
 
