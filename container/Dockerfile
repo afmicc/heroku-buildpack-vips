@@ -49,12 +49,12 @@ RUN cd /usr/src \
 	&& make install
 
 ARG ORC_VERSION=0.4.28
-ARG ORC_URL=http://cgit.freedesktop.org/gstreamer/orc/snapshot
+ARG ORC_URL=https://gitlab.freedesktop.org/gstreamer/orc/-/archive
 
 RUN cd /usr/src \
-	&& wget ${ORC_URL}/orc-$ORC_VERSION.tar.gz \
-	&& tar xf orc-${ORC_VERSION}.tar.gz \
-	&& cd orc-${ORC_VERSION} \
+	&& wget ${ORC_URL}/orc-$ORC_VERSION/orc-orc-$ORC_VERSION.tar.gz \
+	&& tar xf orc-orc-${ORC_VERSION}.tar.gz \
+	&& cd orc-orc-${ORC_VERSION} \
 	&& ./autogen.sh \
 	&& ./configure --prefix=/usr/src/vips --disable-gtk-doc \
 	&& make \
